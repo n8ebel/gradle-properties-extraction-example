@@ -17,6 +17,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ env.ACCESS_TOKEN }}
 
       - name: Build Project
         run: ./gradlew build
