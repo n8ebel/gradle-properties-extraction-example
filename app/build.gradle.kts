@@ -19,6 +19,11 @@ repositories {
     jcenter()
 }
 
+application(Action {
+    // Define the main class for the application.
+    mainClass.set("dev.goobar.AppKt")
+})
+
 dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
@@ -34,9 +39,4 @@ dependencies {
 
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-}
-
-application {
-    // Define the main class for the application.
-    mainClass.set("dev.goobar.AppKt")
 }
