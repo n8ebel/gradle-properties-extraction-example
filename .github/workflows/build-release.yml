@@ -1,0 +1,29 @@
+name: Build Release
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'production'
+
+jobs:
+  build:
+    name: Assemble
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Project
+        run: ./gradlew build
+
+      - name: Extract Version Info
+        run: |
+          export ARTIFACT_VERSION=$(./gradlew properties | grep ^version | cut -c 10-)
+          echo "ARTIFACT_VERSION=$ARTIFACT_VERSION" >> $GITHUB_ENV
+
+      - name: Tag Release
+        run: |
+          git tag -a ${{ env.ARTIFACT_VERSION }} -m "mobile-shared v${{ env.ARTIFACT_VERSION }}"
+          git push origin ${{ env.ARTIFACT_VERSION}}
