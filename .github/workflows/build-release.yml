@@ -6,6 +6,9 @@ on:
     branches:
       - 'production'
 
+env:
+  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
 jobs:
   build:
     name: Assemble
@@ -25,5 +28,5 @@ jobs:
 
       - name: Tag Release
         run: |
-          git tag -a ${{ env.ARTIFACT_VERSION }} -m "mobile-shared v${{ env.ARTIFACT_VERSION }}"
+          git tag -a ${{ env.ARTIFACT_VERSION }} -m "Release v${{ env.ARTIFACT_VERSION }}"
           git push origin ${{ env.ARTIFACT_VERSION}}
