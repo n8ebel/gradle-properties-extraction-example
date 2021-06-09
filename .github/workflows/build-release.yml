@@ -6,9 +6,6 @@ on:
     branches:
       - 'production'
 
-env:
-  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
 jobs:
   build:
     name: Assemble
@@ -17,8 +14,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ env.ACCESS_TOKEN }}
 
       - name: Build Project
         run: ./gradlew build
@@ -30,5 +25,7 @@ jobs:
 
       - name: Tag Release
         run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git tag -a ${{ env.ARTIFACT_VERSION }} -m "Release v${{ env.ARTIFACT_VERSION }}"
           git push origin ${{ env.ARTIFACT_VERSION}}
